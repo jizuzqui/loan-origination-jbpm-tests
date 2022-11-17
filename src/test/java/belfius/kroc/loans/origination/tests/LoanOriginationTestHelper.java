@@ -24,12 +24,13 @@ public class LoanOriginationTestHelper {
 		// Service Tasks
 		SERVICETASK_SEND_INFORMATION_LETTER(new ProcessNode("Send Information Letter", "manageDocument", NodeType.SERVICE_TASK)),
 		SERVICETASK_CALCULATE_REQUEST_ADMISSIBILITY_DECISION(new ProcessNode("Calculate Admissibility Request Decision", "calculateRequestAdmissibilityDecision", NodeType.SERVICE_TASK)),
-		SERVICETASK_SEND_REPRESENTATION_CLASS_NOTIFICATION(new ProcessNode("Send representation class notification", "manageDocument", NodeType.SERVICE_TASK)),
+		SERVICETASK_SEND_REPRESENTATION_CLASS_NOTIFICATION(new ProcessNode("Send representation class notification", "checkRepresentationClassStatus", NodeType.SERVICE_TASK)),
 		
 		SERVICETASK_INVALIDATE_EVERYTHING(new ProcessNode("Invalidate Everything", "compensateTask", NodeType.SERVICE_TASK)),
 		SERVICETASK_PROVIDE_REFUSAL_LETTER(new ProcessNode("Provide Refusal Letter", "manageDocument", NodeType.SERVICE_TASK)),		
 		SERVICETASK_SET_REQUEST_STATE_TO_CANCEL(new ProcessNode("Set Requests State to Cancel", "updateActorRequestState", NodeType.SERVICE_TASK)),
-		
+		SERVICETASK_SET_REQUEST_STATE_TO_NEEDS_TO_COMPLETE(new ProcessNode("Set Actor Request State to NEEDS_TO_COMPLETE", "updateActorRequestState", NodeType.SERVICE_TASK)),
+
 		// User Tasks
 		USERTASK_TREAT_ATTENTION_POINTS(new ProcessNode("Treat Attention Points", null, NodeType.USER_TASK)),
 		
@@ -65,7 +66,7 @@ public class LoanOriginationTestHelper {
 	public static enum CalculateAdmissibilityDecisionResultCodes {
 		NON_ADMISSIBLE("NON_ADMISSIBLE"),
 		ATTENTION_POINTS("ATTENTION_POINTS"),
-		OK("OK");
+		ADMISSIBLE("ADMISSIBLE");
 		
 		private String decisionCode;
 
@@ -129,7 +130,28 @@ public class LoanOriginationTestHelper {
 			this.codeId = codeId;
 		}
 	}
-	
+
+	/**
+	 * State Codes for the origination bundle.
+	 */
+	public enum ActorRequestStatusCodes {
+		NEEDS_TO_COMPLETE("NEEDS_TO_COMPLETE");
+
+		private String codeId;
+
+		private ActorRequestStatusCodes(String codeId) {
+			this.setCodeId(codeId);
+		}
+
+		public String getCodeId() {
+			return codeId;
+		}
+
+		public void setCodeId(String codeId) {
+			this.codeId = codeId;
+		}
+	}
+
 	/**
 	 * Back State Codes for revert signal.
 	 */
